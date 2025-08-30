@@ -2,6 +2,7 @@ FROM debian:latest
 
 
 ARG JELLYFIN_FFMPEG_VERSION=7.1.1-7
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN set -eux \
     && apt-get update \
@@ -23,8 +24,8 @@ RUN set -eux \
     && ls -la /tmp/jf-ffmpeg \
     && install -m 0755 /tmp/jf-ffmpeg/ffmpeg /usr/bin/ffmpeg \
     && install -m 0755 /tmp/jf-ffmpeg/ffprobe /usr/bin/ffprobe \
-    && /usr/bin/ffmpeg -version >/dev/null \
-    && /usr/bin/ffprobe -version >/dev/null \
+    && /usr/bin/ffmpeg -version \
+    && /usr/bin/ffprobe -version \
     && rm -rf /tmp/*
 
 ENTRYPOINT ["/usr/bin/ffmpeg"]
