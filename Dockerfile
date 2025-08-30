@@ -4,6 +4,12 @@ FROM debian:latest
 ARG JELLYFIN_FFMPEG_VERSION=7.1.1-7
 
 RUN set -eux \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+        ca-certificates \
+        curl \
+        xz-utils \
+    && rm -rf /var/lib/apt/lists/* \
     && arch="$(dpkg --print-architecture)" \
     && case "$arch" in \
     amd64) jf_arch="linux64" ;; \
